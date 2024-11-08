@@ -5,16 +5,21 @@ namespace CORE_RAZOR.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly UserService _userService;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        // Public property to hold the list of users
+        public List<User> Users { get; set; }
+
+        public IndexModel(UserService userService)
         {
-            _logger = logger;
+            _userService = userService;
         }
 
-        public void OnGet()
+        // OnGetAsync method to populate Users
+        public async Task OnGetAsync()
         {
-
+            Users = await _userService.GetUsersAsync();
         }
     }
+
 }
